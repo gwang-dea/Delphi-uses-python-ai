@@ -4,25 +4,35 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, PythonEngine,
-  Vcl.PythonGUIInputOutput, Vcl.ExtCtrls, VarPyth, Vcl.Imaging.jpeg;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Imaging.jpeg, Vcl.Imaging.pngimage, Vcl.MPlayer, Vcl.ComCtrls,
+  PythonEngine;
 
 type
   TForm1 = class(TForm)
-    PythonGUIInputOutput1: TPythonGUIInputOutput;
-    PythonEngine1: TPythonEngine;
-    Memo1: TMemo;
-    Memo2: TMemo;
-    Label1: TLabel;
-    Button1: TButton;
+    PnTop: TPanel;
     Image1: TImage;
+    EdtFilePath: TEdit;
+    BtnFindFile: TButton;
+    PnContainer: TPanel;
+    PnLeft: TPanel;
     Image2: TImage;
-    Button2: TButton;
-    Label2: TLabel;
+    PnButtom: TPanel;
+    StatusBar1: TStatusBar;
+    GroupBox1: TGroupBox;
+    RichEdit1: TRichEdit;
+    GroupBox2: TGroupBox;
+    Splitter1: TSplitter;
+    GroupBox3: TGroupBox;
+    PnRight: TPanel;
+    Image3: TImage;
+    GroupBox4: TGroupBox;
     OpenDialog1: TOpenDialog;
+    PythonEngine1: TPythonEngine;
     PythonModule1: TPythonModule;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    PythonInputOutput1: TPythonInputOutput;
+    procedure FormCreate(Sender: TObject);
+    procedure BtnFindFileClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,45 +46,35 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.BtnFindFileClick(Sender: TObject);
+var
+  Inpath, OutPath : string;
 begin
-  // memo2에 작성된 내용이 있다면 지우고 다시
-  memo2.lines.clear;
-  //memo1에 적힌 파이썬 코드를 실행.
-  Pythonengine1.ExecStrings(memo1.Lines);
+  // 버튼 클릭 시 영상 파일 찾아보기
+  if opendialog1.Execute() then
+  begin
+    InPath := OpenDialog1.filename;
+
+    EdtFilePath.Text := InPath;
+    // 파일 업로드 하면 이미지 파일을 원본 에 보여주기
+    Image2.Picture.LoadFromFile(INPATH);
+  end;
 
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
-var
-  PyFunc: variant;
-  InPath, OutPath: string;
+procedure TForm1.FormCreate(Sender: TObject);
 begin
-  // 1. 경로 설정 (이미지 파일이 있는 경로)
-  InPath := 'C:\Users\master1212\Desktop\DelphiAI\minion.jpg';
-  OutPath := 'C:\Users\master1212\Desktop\DelphiAI\minion.jpg';
+  //20260105 AI 영상 분석
+  PnTop.color       := $10202020; // $00333333 다크그레이
+  PnContainer.color := $10202020; // $00333333 다크그레이
+  PnLeft.color      := $10202020; // $00333333 다크그레이
+  PnRight.color     := $10202020; // $00333333 다크그레이
+  PnButtom.color    := $002B2B2B; // 어두운 회색 코드.
 
-  // 2. Python 스크립트 파일 로드 및 실행
-  // PythonEngine1.ExecStrings(memo1.Lines); // 혹은 아래처럼 직접 호출
-  image1.Stretch := True;
-
-  //  image1.Picture.LoadFromFile('C:\Users\master1212\Desktop\DelphiAI\minion.jpg');
-  // 3. PythonModule을 통해 함수 호출 (Mask 활용)
-  try
-    // Python 파일 내의 함수를 직접 가져옵니다.
-    PyFunc := Import('image'); // vision_core.py 임포트
-
-    // 함수 실행 및 결과값 받기
-    if PyFunc.process_gray(InPath, OutPath) = 'Success' then
-    begin
-      // 4. 결과가 성공이면 Delphi Image 컴포넌트에 로드
-      image1.Picture.LoadFromFile(OutPath);
-      ShowMessage('AI 이미지 변환 완료!');
-    end;
-  except
-    on E: Exception do
-      ShowMessage('에러 발생: ' + E.Message);
-  end;
+  // BOTTOM RICHEDIT COLOR CHANGE.
+  RICHEDIT1.Color       := $001E1E1E;
+  RICHEDIT1.FONT.Color  := clWhite;
+  RICHEDIT1.BorderStyle := bsNone;
 
 end;
 
