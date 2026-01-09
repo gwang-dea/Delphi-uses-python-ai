@@ -1,10 +1,13 @@
-배우는 과정 1일차 
+1) 사용 skill 
+   - Delphi / Python
+2) 프로젝트 이름 : Delphi ai 분석 프로그램
 
-Delphi 사용해서 Python 사용하기.
 
-Delphi ui 이용 python 스크립트 이용 
+3) Delphi를 사용 Python AI (YOLO)
+   - Delphi ui 사용 / python AI 툴 불러와 사용
 
-Delphi에서 이미지 변환 OpenCV / textblob 이용
-
-20260106 디자인 변경 ...
-ai 관련해서 llm / 영상 관련 프로그램 추가. 
+4) 문제 및 해결
+   - Delphi 내부 컨퍼넌트 사용 ( TWindowsMedia ) 사용 시 64bit에선 영상파일 (mp4) 불가.
+   - Delphi4Python 컨퍼넌트 사용 / 64bit에서도 가능 하게 설치
+   - Delphi 컨퍼넌트 windowsMedia 사용 불가해서 -> Paslibmedia? 컨퍼넌트 외부 사용
+   - VLCmedia Plyer 사용 문제 해결.
