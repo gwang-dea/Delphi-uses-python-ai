@@ -1,9 +1,10 @@
 object Main_Form: TMain_Form
   Left = 0
   Top = 111
+  OnAlignInsertBefore = FormAlignInsertBefore
   BorderStyle = bsDialog
   Caption = 'Image Processing'
-  ClientHeight = 770
+  ClientHeight = 840
   ClientWidth = 797
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
@@ -13,21 +14,22 @@ object Main_Form: TMain_Form
   Font.Style = []
   Position = poDesigned
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   TextHeight = 15
   object PnContainer: TPanel
     Left = 0
     Top = 99
     Width = 797
-    Height = 471
+    Height = 541
     Align = alClient
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 779
+    ExplicitHeight = 471
     object Splitter1: TSplitter
       Left = 391
       Top = 1
-      Height = 469
+      Height = 539
       ExplicitLeft = 441
       ExplicitHeight = 811
     end
@@ -35,7 +37,7 @@ object Main_Form: TMain_Form
       Left = 1
       Top = 1
       Width = 390
-      Height = 469
+      Height = 539
       Align = alLeft
       Caption = #50896#48376' '#50689#49345' '
       DefaultHeaderFont = False
@@ -51,37 +53,26 @@ object Main_Form: TMain_Form
       HeaderFont.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
+      ExplicitHeight = 469
       object PnLeft: TPanel
         Left = 2
         Top = 39
         Width = 400
-        Height = 428
+        Height = 498
         Align = alLeft
         Caption = 'PnLeft'
         TabOrder = 0
+        ExplicitHeight = 428
         object Image2: TImage
           Left = 1
           Top = 1
           Width = 398
-          Height = 426
+          Height = 496
           Align = alClient
           Proportional = True
           Stretch = True
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 527
-          ExplicitHeight = 768
-        end
-        object MediaPlayer1: TMediaPlayer
-          Left = 71
-          Top = 376
-          Width = 253
-          Height = 30
-          DoubleBuffered = True
-          Display = PnLeft
-          Visible = False
-          ParentDoubleBuffered = False
-          TabOrder = 0
+          ExplicitLeft = 17
+          ExplicitTop = 13
         end
       end
     end
@@ -89,7 +80,7 @@ object Main_Form: TMain_Form
       Left = 394
       Top = 1
       Width = 402
-      Height = 469
+      Height = 539
       Align = alClient
       Caption = 'AI '#50689#49345' '
       DefaultHeaderFont = False
@@ -105,21 +96,21 @@ object Main_Form: TMain_Form
       HeaderFont.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
-      ExplicitWidth = 384
+      ExplicitHeight = 469
       object PnRight: TPanel
         Left = 2
         Top = 39
         Width = 398
-        Height = 428
+        Height = 498
         Align = alClient
         Caption = 'PnRight'
         TabOrder = 0
-        ExplicitWidth = 380
+        ExplicitHeight = 428
         object Image3: TImage
           Left = 1
           Top = 1
           Width = 396
-          Height = 426
+          Height = 496
           Align = alClient
           Proportional = True
           Stretch = True
@@ -130,17 +121,32 @@ object Main_Form: TMain_Form
         end
       end
     end
+    object Panel1: TPanel
+      Left = 106
+      Top = -80
+      Width = 529
+      Height = 408
+      Caption = 'Panel1'
+      TabOrder = 2
+      object PasLibVlcPlayer1: TPasLibVlcPlayer
+        Left = 8
+        Top = 12
+        Width = 513
+        SnapShotFmt = 'png'
+        MouseEventsHandler = mehComponent
+      end
+    end
   end
   object PnButtom: TPanel
     Left = 0
-    Top = 570
+    Top = 640
     Width = 797
     Height = 200
     Align = alBottom
     Caption = 'PnBottom'
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 779
+    ExplicitTop = 570
     object StatusBar1: TStatusBar
       Left = 1
       Top = 180
@@ -159,7 +165,6 @@ object Main_Form: TMain_Form
           Text = #49457#44277' '#50668#48512
           Width = 300
         end>
-      ExplicitWidth = 777
     end
     object GroupBox1: TGroupBox
       Left = 1
@@ -181,7 +186,6 @@ object Main_Form: TMain_Form
       HeaderFont.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
-      ExplicitWidth = 777
       object RichEdit1: TRichEdit
         Left = 2
         Top = 39
@@ -196,7 +200,6 @@ object Main_Form: TMain_Form
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
-        ExplicitWidth = 773
       end
     end
   end
@@ -221,7 +224,6 @@ object Main_Form: TMain_Form
     HeaderFont.Quality = fqClearType
     ParentFont = False
     TabOrder = 2
-    ExplicitWidth = 779
     object PnTop: TPanel
       Left = 2
       Top = 17
@@ -231,9 +233,6 @@ object Main_Form: TMain_Form
       Color = clMedGray
       ParentBackground = False
       TabOrder = 0
-      ExplicitLeft = 162
-      ExplicitTop = 25
-      ExplicitWidth = 1270
       object Image1: TImage
         Left = 2
         Top = 2
@@ -552,6 +551,7 @@ object Main_Form: TMain_Form
         Height = 25
         Caption = #54540#47112#51060' '#48260#53948
         TabOrder = 2
+        OnClick = Button1Click
       end
       object Button2: TButton
         Left = 696
@@ -560,6 +560,7 @@ object Main_Form: TMain_Form
         Height = 25
         Caption = #54532#47196#44536#47016' '#51333#47308' '
         TabOrder = 3
+        OnClick = Button2Click
       end
     end
   end
